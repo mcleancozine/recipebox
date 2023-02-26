@@ -1,9 +1,12 @@
 A project to help me learn Rust.
 
-The goal is to create an application that stores recipes.
-Users should be able to search recipes by ingredient, name, origin, and more.
+The goal is to create an application that stores recipes. Users should be able to search recipes by ingredient, name, origin, and more.
 
-Eventually, I would like to turn this into a web application, using Rust crates
-for PostgreSQL, asynchronous servers, and more, in order to learn about those
-things as well. If I get to that stage of the project, I would also like to
-learn Svelte for the web frontend.
+Eventually, I would like to turn this into a web application, using Rust crates for PostgreSQL, asynchronous servers, and more, in order to learn about those things as well. If I get to that stage of the project, I would also like to learn Svelte for the web frontend.
+
+Design decisions:
+- Made recipes, ingredients, and steps into structs. They are going to be core types in the app and could have any number of different instances.
+- Made measurements into an enum. This could change in the future, but there are a finite number of different measurements you can have, so I think this makes sense.
+
+Todo/think about:
+clean all user input
