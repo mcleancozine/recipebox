@@ -4,6 +4,7 @@ fn main() {
     println!("Hello, world!");
 }
 
+#[derive(Debug)]
 struct Recipe {
     name: String,
     description: String,

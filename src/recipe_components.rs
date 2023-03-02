@@ -1,9 +1,11 @@
+#[derive(Debug)]
 pub struct Ingredient {
     pub name: String,
     pub amount: Measurement,
     pub special_instructions: String,
 }
 
+#[derive(Debug)]
 pub struct Step {
     order: u8,
     pub description: String,
