@@ -14,6 +14,16 @@ struct Recipe {
 }
 
 impl Recipe {
+    fn new(name: String) -> Self {
+        Self {
+            name,
+            description = String::new(),
+            source = String::new(),
+            ingredients = Vec::new(),
+            steps = Vec::new(),
+        }
+    }
+    
     fn add_step(&mut self, recipe_components::Step step) {
         self.steps.push(step);
     }
