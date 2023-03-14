@@ -14,7 +14,7 @@ struct Recipe {
 }
 
 impl Recipe {
-    fn new(name: String) -> Self {
+    fn new(name: &str) -> Self {
         Self {
             name,
             description = String::new(),
@@ -30,5 +30,15 @@ impl Recipe {
 
     fn get_step(&self, i32 step_index) -> Option<Step> {
         self.steps.get(step_index)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn new_recipe() {
+        let recipe = Recipe::new("test_recipe");
     }
 }
