@@ -1,11 +1,27 @@
-struct Cli {
+use clap::Parser;
+use recipe_box::Recipe;
+
+/// Simple program to take in and store a recipe with its source and ingredients
+#[derive(Parser, Debug)]
+struct Args {
+    /// Name of the recipe 
+    #[arg(short, long)]
     name: String,
+
+    /// Source of the recipe (cookbook name, website, etc.)
+    #[arg(short, long)]
     source: String,
+    /*
+    /// List of ingredients in the recipe
+    #[arg(short, long)]
     ingredients: Vec<String>,
+    */
 }
 
 fn main() {
-    let name = std::env::args().nth(1).expect("no name given");
-    let source = std::env::args().nth(2).expect("no source given");
-    let ingredients = std::env::args().next_chunk().expect("no ingredients given");
+    let args = Args::parse();
+    let mut recipe = Recipe::new(&args.name);
+    recipe.add_source(&args.source);
+    print!("Provided name: {}\n", args.name);
+    print!("Provided source: {}\n", recipe.get_source());
 }
