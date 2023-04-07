@@ -1,6 +1,6 @@
 use clap::Parser;
-use log::{info, debug};
-use recipe_box::Recipe;
+use log::{info, trace};
+use recipe_box;
 
 /// Simple program to take in and store a recipe with its source and ingredients
 #[derive(Parser)]
@@ -22,9 +22,11 @@ struct Args {
 fn main() {
     env_logger::init();
     info!("Starting log");
+    run();
+}
+
+fn run() {
+    trace!("Entered fn run()");
     let args = Args::parse();
-    let mut recipe = Recipe::new(&args.name);
-    recipe.add_source(&args.source);
-    debug!("Provided recipe name: {}", args.name);
-    debug!("Provided recipe source: {}", recipe.get_source());
+    recipe_box::create_recipe(&args.name, &args.source);
 }

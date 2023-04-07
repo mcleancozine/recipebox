@@ -1,3 +1,5 @@
+use log::{debug, trace};
+
 pub struct Recipe {
     name: String,
     source: String,
@@ -36,6 +38,13 @@ impl Recipe {
         }
         result
     }
+}
+
+pub fn create_recipe(name: &str, source: &str) {
+    trace!("Entered fn create_recipe()");
+    let mut recipe = Recipe::new(name);
+    recipe.add_source(source);
+    debug!("Created recipe with name {} and source {}", name, source);
 }
 
 #[cfg(test)]
