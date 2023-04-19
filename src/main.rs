@@ -1,4 +1,4 @@
-use clap::Parser;
+use clap::{error::{Error, ErrorKind}, Parser};
 use log::{debug};
 use recipe_box;
 use std::io;
@@ -7,17 +7,27 @@ use std::io;
 #[derive(Parser)]
 struct Args {
     /// Name of the recipe 
-    #[arg(short, long)]
+    #[arg(short, long, value_parser = Args::arg_not_empty)]
     name: Option<String>,
 
     /// Source of the recipe (cookbook name, website, etc.)
-    #[arg(short, long)]
+    #[arg(short, long, value_parser = Args::arg_not_empty)]
     source: Option<String>,
     /*
     /// List of ingredients in the recipe
     #[arg(short, long)]
     ingredients: Vec<String>,
     */
+}
+
+impl Args {
+    fn arg_not_empty(arg_val: &str) -> Result<String, Error> {
+        if arg_val.trim().len() == 0 {
+            return Err(Error::new(ErrorKind::InvalidValue));
+        } else {
+            return Ok(arg_val.to_string());
+        }
+    }
 }
 
 fn main() {

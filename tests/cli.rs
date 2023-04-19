@@ -97,7 +97,7 @@ fn empty_name() -> Result<(), Box<dyn std::error::Error>> {
     let mut cmd = Command::cargo_bin("recipe_box")?;
 
     let assert = cmd.arg("-n").arg("").arg("-s").arg("test_source").assert();
-    assert.failure().stderr(predicate::str::contains("needs value"));
+    assert.failure().stderr(predicate::str::contains("isn't valid"));
 
     Ok(())
 }
@@ -107,7 +107,7 @@ fn empty_source() -> Result<(), Box<dyn std::error::Error>> {
     let mut cmd = Command::cargo_bin("recipe_box")?;
 
     let assert = cmd.arg("-n").arg("test_name").arg("-s").arg("").assert();
-    assert.failure().stderr(predicate::str::contains("needs value"));
+    assert.failure().stderr(predicate::str::contains("isn't valid"));
 
     Ok(())
 }
@@ -117,7 +117,7 @@ fn space_for_name() -> Result<(), Box<dyn std::error::Error>> {
     let mut cmd = Command::cargo_bin("recipe_box")?;
 
     let assert = cmd.arg("-n").arg(" ").arg("-s").arg("test_source").assert();
-    assert.failure().stderr(predicate::str::contains("needs value"));
+    assert.failure().stderr(predicate::str::contains("isn't valid"));
 
     Ok(())
 }
@@ -127,7 +127,7 @@ fn space_for_source() -> Result<(), Box<dyn std::error::Error>> {
     let mut cmd = Command::cargo_bin("recipe_box")?;
 
     let assert = cmd.arg("-n").arg("test_name").arg("-s").arg(" ").assert();
-    assert.failure().stderr(predicate::str::contains("needs value"));
+    assert.failure().stderr(predicate::str::contains("isn't valid"));
 
     Ok(())
 }
