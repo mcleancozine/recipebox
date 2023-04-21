@@ -7,12 +7,18 @@ Eventually, I would like to turn this into a web application, using Rust crates 
 As a starting point, I am going to design a CLI that takes and stores a recipe name, origin, and list of ingredient names. Users should then be able to search their stored recipes by name, origin, or ingredient. 
 
 Design decisions:
-- Use clap crate for command line parsing due to its popularity
+- Use the clap crate for command line parsing due to its popularity
     - use this to parse the args into a struct
-- Store recipes in a struct with getter and setter methods
+- Allow recipe name and source to be passed as arguments, but don't require it
+    - if passed, they must not be empty
+- Require recipes to have a name and a source
+    - if none passed in as args, prompt for them at the terminal
+- Store recipes in a struct with getter and setter methods for data
     - keep the internal info private, while allowing manipulation of the recipe
 - Use log and env_logger crates for logging
     - log the user's inputs using this for debugging purposes
+- Use dialoguer crate for terminal prompts
+- Have a lib and bin crate
 - Break all logic out of the main() function to keep it modular
 - Use assert_cmd and predicates crates for integration testing
 
@@ -22,3 +28,6 @@ What is happening:
 
 Todo/think about:
 clean all user input
+allow editing recipe name
+make sure that when prompted, name and source aren't empty
+figure out getting ingredients into recipes
