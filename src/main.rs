@@ -1,7 +1,7 @@
 use clap::{error::{Error, ErrorKind}, Parser};
+use dialoguer::Input;
 use log::{debug};
 use recipe_box;
-use std::io;
 
 /// A simple program to take in and store the source and ingredients of a recipe.
 #[derive(Parser)]
@@ -38,45 +38,35 @@ fn main() {
 
 fn run() {
     let args = Args::parse();
-    let name = parse_name(args.name);
-    let source = parse_source(args.source);
+    let name = parse_name(args.name).expect("Failed to read name");
+    let source = parse_source(args.source).expect("Failed to read source");
     recipe_box::create_recipe(&name[..], &source[..]);
 }
 
-fn parse_name(arg_name: Option<String>) -> String {
+fn parse_name(arg_name: Option<String>) -> Result<String, Error> {
     match arg_name {
-        Some(name) => name,
+        Some(name) => Ok(name),
         None => prompt_name()
     }
 }
 
-fn parse_source(arg_source: Option<String>) -> String {
+fn parse_source(arg_source: Option<String>) -> Result<String, Error> {
     match arg_source {
-        Some(source) => source,
+        Some(source) => Ok(source),
         None => prompt_source()
     }
 }
 
-fn prompt_name() -> String {
-    println!("Enter recipe name:");
-
-    let mut name = String::new();
-
-    io::stdin()
-        .read_line(&mut name)
-        .expect("Failed to read name");
-
-    name
+fn prompt_name() -> Result<String, Error> {
+    let input : String = Input::new()
+        .with_prompt("Enter recipe name")
+        .interact_text()?;
+    Ok(input)
 }
 
-fn prompt_source() -> String {
-    println!("Enter recipe source:");
-
-    let mut source = String::new();
-
-    io::stdin()
-        .read_line(&mut source)
-        .expect("Failed to read source");
-
-    source
+fn prompt_source() -> Result<String, Error> {
+    let input : String = Input::new()
+        .with_prompt("Enter recipe source")
+        .interact_text()?;
+    Ok(input)
 }
