@@ -94,4 +94,22 @@ mod tests {
         expected_result.insert("onions");
         assert_eq!(recipe.get_ingredients(), expected_result);
     }
+
+    #[test]
+    fn removing_ingredients() {
+        let mut recipe = Recipe::new("test_recipe");
+        recipe.add_ingredient("salt");
+        recipe.add_ingredient("pepper");
+        recipe.add_ingredient("onions");
+        let mut expected_result = HashSet::new();
+        expected_result.insert("salt");
+        expected_result.insert("pepper");
+        expected_result.insert("onions");
+        assert_eq!(recipe.get_ingredients(), expected_result);
+        recipe.remove_ingredient("pepper");
+        expected_result.clear();
+        expected_result.insert("salt");
+        expected_result.insert("onions");
+        assert_eq!(recipe.get_ingredients(), expected_result);
+    }
 }
