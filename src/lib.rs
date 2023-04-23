@@ -15,6 +15,10 @@ impl Recipe {
         }
     }
 
+    pub fn set_name(&mut self, name: &str) {
+        self.name = name.to_string();
+    }
+
     pub fn get_name(&self) -> &str {
         &self.name
     }
@@ -54,6 +58,14 @@ mod tests {
     fn new_recipe() {
         let recipe = Recipe::new("test_recipe");
         assert_eq!(recipe.get_name(), "test_recipe");
+    }
+
+    #[test] 
+    fn edit_name() {
+        let mut recipe = Recipe::new("test_recipe");
+        assert_eq!(recipe.get_name(), "test_recipe");
+        recipe.set_name("new name");
+        assert_eq!(recipe.get_name(), "new name");
     }
 
     #[test]
