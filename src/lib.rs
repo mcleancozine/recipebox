@@ -1,9 +1,10 @@
 use log::{info};
+use std::collections::HashSet;
 
 pub struct Recipe {
     name: String,
     source: String,
-    ingredients: Vec<String>,
+    ingredients: HashSet<String>,
 }
 
 impl Recipe {
@@ -11,7 +12,7 @@ impl Recipe {
         Self {
             name: name.to_string(),
             source: String::new(),
-            ingredients: Vec::new(),
+            ingredients: HashSet::new(),
         }
     }
 
@@ -32,13 +33,17 @@ impl Recipe {
     }
 
     pub fn add_ingredient(&mut self, ingredient: &str) {
-        self.ingredients.push(ingredient.to_string());
+        self.ingredients.insert(ingredient.to_string());
     }
 
-    pub fn get_ingredients(&self) -> Vec<&str> {
-        let mut result = Vec::new();
+    pub fn remove_ingredient(&mut self, ingredient: &str) {
+        self.ingredients.remove(ingredient);
+    }
+
+    pub fn get_ingredients(&self) -> HashSet<&str> {
+        let mut result = HashSet::new();
         for ingredient in &self.ingredients {
-            result.push(&ingredient[..]);
+            result.insert(&ingredient[..]);
         }
         result
     }
@@ -79,11 +84,14 @@ mod tests {
     fn adding_ingredients() {
         let mut recipe = Recipe::new("test_recipe");
         recipe.add_ingredient("salt");
-        let mut expected_result = Vec::new();
-        expected_result.push("salt");
+        let mut expected_result = HashSet::new();
+        expected_result.insert("salt");
         assert_eq!(recipe.get_ingredients(), expected_result);
         recipe.add_ingredient("pepper");
-        expected_result.push("pepper");
+        expected_result.insert("pepper");
+        assert_eq!(recipe.get_ingredients(), expected_result);
+        recipe.add_ingredient("onions");
+        expected_result.insert("onions");
         assert_eq!(recipe.get_ingredients(), expected_result);
     }
 }
