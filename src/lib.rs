@@ -19,7 +19,7 @@ impl Recipe {
         &self.name
     }
 
-    pub fn add_source(&mut self, source: &str) {
+    pub fn set_source(&mut self, source: &str) {
         self.source = source.to_string();
     }
 
@@ -42,7 +42,7 @@ impl Recipe {
 
 pub fn create_recipe(name: &str, source: &str) {
     let mut recipe = Recipe::new(name);
-    recipe.add_source(source);
+    recipe.set_source(source);
     info!("Created recipe with name {} and source {}", name, source);
 }
 
@@ -59,7 +59,7 @@ mod tests {
     #[test]
     fn adding_source() {
         let mut recipe = Recipe::new("test_recipe");
-        recipe.add_source("test_source");
+        recipe.set_source("test_source");
         assert_eq!(recipe.get_source(), "test_source");
     }
 
