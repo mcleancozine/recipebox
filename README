@@ -13,8 +13,10 @@ Design decisions:
     - if passed, they must not be empty
 - Require recipes to have a name and a source
     - if none passed in as args, prompt for them at the terminal
-- Store recipes in a struct with getter and setter methods for data
+- Structure recipes as a struct with getter and setter methods for data
     - keep the internal info private, while allowing manipulation of the recipe
+- Store ingredients in a recipe as a HashSet of strings
+    - each ingredient only needs to exist once in a recipe
 - Use log and env_logger crates for logging
     - log the user's inputs using this for debugging purposes
 - Use dialoguer crate for terminal prompts
@@ -27,7 +29,5 @@ What is happening:
 2. It creates a new Recipe with the given name and then adds the source to it
 
 Todo/think about:
-clean all user input
-allow editing recipe name
 make sure that when prompted, name and source aren't empty
 figure out getting ingredients into recipes
