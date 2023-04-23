@@ -13,11 +13,6 @@ struct Args {
     /// Source of the recipe (cookbook name, website, etc.)
     #[arg(short, long, value_parser = Args::arg_not_empty)]
     source: Option<String>,
-    /*
-    /// List of ingredients in the recipe
-    #[arg(short, long)]
-    ingredients: Vec<String>,
-    */
 }
 
 impl Args {
